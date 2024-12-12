@@ -9,32 +9,42 @@ const DiscordStatus = () => {
     const [timestamps, setTimestamps] = useState({ start: 0, end: 0 });
 
 
-    useEffect(() => {
-        const fetchDiscordStatus = async () => {
-            try {
-                const response = await axios.get(
-                    'https://api.lanyard.rest/v1/users/746276722902695957'
-                );
-                const { data } = response;
+useEffect(() => {
+    const fetchDiscordStatus = async () => {
+        try {
+            const response = await axios.get(
+                'https://api.lanyard.rest/v1/users/746276722902695957'
+            );
+            const { data } = response;
 
-                const vsCodeActivity = data?.data?.activities?.find(
-                    (activity: { name: string }) => activity?.name === 'Visual Studio Code'
-                );
+            const vsCodeActivity = data?.data?.activities?.find(
+                (activity: { name: string }) => activity?.name === 'Visual Studio Code'
+            );
 
-                if (vsCodeActivity) {
-                    setActivity(vsCodeActivity.name);
-                    setDetails(vsCodeActivity.details);
-                    setLargeImage(vsCodeActivity.assets?.large_image ?? '');
-                    setFileImage(vsCodeActivity.assets?.large_text ?? '');
-                    setTimestamps({ start: vsCodeActivity.timestamps?.start ?? 0, end: vsCodeActivity.timestamps?.end ?? 0 });
+            if (vsCodeActivity) {
+                console.log('Fetched timestamps:', vsCodeActivity.timestamps);
+
+                const startTimestamp = vsCodeActivity.timestamps?.start;
+                if (startTimestamp && startTimestamp < 1e12) {
+                    vsCodeActivity.timestamps.start = startTimestamp * 1000; // Convert to milliseconds if necessary
                 }
-            } catch (error) {
-                console.error('Error fetching Discord status:', error);
-            }
-        };
 
-        fetchDiscordStatus();
-    }, []);
+                setActivity(vsCodeActivity.name);
+                setDetails(vsCodeActivity.details);
+                setLargeImage(vsCodeActivity.assets?.large_image ?? '');
+                setFileImage(vsCodeActivity.assets?.large_text ?? '');
+                setTimestamps({
+                    start: vsCodeActivity.timestamps?.start ?? 0,
+                    end: vsCodeActivity.timestamps?.end ?? 0,
+                });
+            }
+        } catch (error) {
+            console.error('Error fetching Discord status:', error);
+        }
+    };
+
+    fetchDiscordStatus();
+}, []);
 
     const formatTimestamp = (timestamp: number): string => {
         const totalSeconds = Math.floor((Date.now() - timestamp) / 1000);
