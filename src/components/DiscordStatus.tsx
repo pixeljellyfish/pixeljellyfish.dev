@@ -22,7 +22,8 @@ useEffect(() => {
             );
 
             if (vsCodeActivity) {
-                console.log('Fetched timestamps:', vsCodeActivity.timestamps);
+                console.log('Raw start timestamp:', vsCodeActivity.timestamps?.start);
+                console.log('Current timestamp (now):', Date.now());
 
                 const startTimestamp = vsCodeActivity.timestamps?.start;
                 if (startTimestamp && startTimestamp < 1e12) {
