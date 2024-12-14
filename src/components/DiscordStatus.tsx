@@ -46,6 +46,7 @@ const DiscordStatus = () => {
 
     // Update elapsed time every second
     useEffect(() => {
+        console.log("Start Timestamp: ", timestamps.start);
         if (timestamps.start) {
             const interval = setInterval(() => {
                 const totalSeconds = Math.floor((Date.now() - timestamps.start) / 1000);
