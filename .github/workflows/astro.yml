@@ -1,7 +1,5 @@
 # Sample workflow for building and deploying an Astro site to GitHub Pages
-#
-# To get started with Astro see: https://docs.astro.build/en/getting-started/
-#
+
 name: Deploy Astro site to Pages
 
 on:
@@ -31,7 +29,7 @@ env:
 jobs:
   build:
     name: Build
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04  # Change to 'ubuntu-22.04' or 'ubuntu-24.04'
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -82,7 +80,7 @@ jobs:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
     needs: build
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04  # Change to 'ubuntu-22.04' or 'ubuntu-24.04'
     name: Deploy
     steps:
       - name: Deploy to GitHub Pages
