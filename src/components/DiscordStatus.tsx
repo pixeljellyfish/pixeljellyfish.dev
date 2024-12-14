@@ -18,9 +18,9 @@ const DiscordStatus = () => {
                 const { data } = response;
 
                 const vsCodeActivity = data?.data?.activities?.find(
-                    (activity) => activity?.name === 'Visual Studio Code'
+                    (activity: { name: string }) => activity?.name === 'Visual Studio Code'
                 );
-
+                
                 if (vsCodeActivity) {
                     const startTimestamp = vsCodeActivity.timestamps?.start;
                     if (startTimestamp && startTimestamp < 1e12) {
