@@ -1,5 +1,6 @@
 {
   "compilerOptions": {
+    "lib": ["es2016", "dom"],
     "jsx": "react",
     "esModuleInterop": true,
     "module": "es2020",

@@ -1,12 +1,12 @@
-import React from 'react';
-import { useLastFM } from 'use-last-fm'
+import * as React from 'react';  // Import React properly
+import { useLastFM } from 'use-last-fm';
 
 export const MusicCard = () => {
     const truncate = (str: string, n: number) => str.length > n ? str.substr(0, n - 1) + '...' : str;
-    // The last.fm api keys aren't even private, so I don't care if you steal them lol (they're also rate limited)
     const lastFM = useLastFM('pixel-donut12', "b1cd73ea885ff9d6a9ddb143c56d7667", 5000, 'large');
 
-    if (['connecting', 'error'].includes(lastFM.status)) return null;
+    // Ensure lastFM.status is a string and is valid
+    if (['connecting', 'error'].includes(lastFM.status as string)) return null;
 
     return (
         <a
@@ -29,7 +29,6 @@ export const MusicCard = () => {
                     alt={lastFM.song.name}
                     className="rounded shadow max-h-[52px] max-w-[52px]"
                     src={lastFM.song.art}
-
                 />
             )}
             <div className="my-auto ml-4">
@@ -52,7 +51,15 @@ export const MusicCard = () => {
                     Spotify
                 </p>
                 {lastFM.status === 'playing' && (
-                    <p className="text-xs text-gray-500"><svg xmlns="http://www.w3.org/2000/svg" className="fill-current h-[1.9em] inline" viewBox="0 0 24 24"><g id="evaHeadphonesOutline0"><g id="evaHeadphonesOutline1"><path id="evaHeadphonesOutline2" fill="#888888" d="M12 2A10.2 10.2 0 0 0 2 12.37V17a4 4 0 1 0 4-4a3.91 3.91 0 0 0-2 .56v-1.19A8.2 8.2 0 0 1 12 4a8.2 8.2 0 0 1 8 8.37v1.19a3.91 3.91 0 0 0-2-.56a4 4 0 1 0 4 4v-4.63A10.2 10.2 0 0 0 12 2ZM6 15a2 2 0 1 1-2 2a2 2 0 0 1 2-2Zm12 4a2 2 0 1 1 2-2a2 2 0 0 1-2 2Z"/></g></g></svg> By {lastFM.song.artist} - {lastFM.song.album}</p>
+                    <p className="text-xs text-gray-500">
+                        <svg xmlns="http://www.w3.org/2000/svg" className="fill-current h-[1.9em] inline" viewBox="0 0 24 24">
+                            <g id="evaHeadphonesOutline0">
+                                <g id="evaHeadphonesOutline1">
+                                    <path id="evaHeadphonesOutline2" fill="#888888" d="M12 2A10.2 10.2 0 0 0 2 12.37V17a4 4 0 1 0 4-4a3.91 3.91 0 0 0-2 .56v-1.19A8.2 8.2 0 0 1 12 4a8.2 8.2 0 0 1 8 8.37v1.19a3.91 3.91 0 0 0-2-.56a4 4 0 1 0 4 4v-4.63A10.2 10.2 0 0 0 12 2ZM6 15a2 2 0 1 1-2 2a2 2 0 0 1 2-2Zm12 4a2 2 0 1 1 2-2a2 2 0 0 1-2 2Z"/>
+                                </g>
+                            </g>
+                        </svg> By {lastFM.song.artist} - {lastFM.song.album}
+                    </p>
                 )}
             </div>
         </a>
