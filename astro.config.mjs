@@ -4,8 +4,8 @@ import react from "@astrojs/react";
 
 // https://astro.build/config
 export default defineConfig({
-  site: 'https://code.pixeljellyfish.xyz',
-  base: '/code.pixeljellyfish.xyz',
+  site: 'https://pixeljellyfish.dev',
+  base: '/pixeljellyfish.dev',
   integrations: [tailwind({
     config: {
       applyBaseStyles: false
