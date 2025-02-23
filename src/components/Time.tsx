@@ -15,8 +15,8 @@ const Time = () => {
   const [date, setDate] = useState(now())
 
   const currentEvent = Object.entries(events)
-    .filter((entry) => entry[1][0] === date.date() && entry[1][1] === date.month() + 1)
-    .flat()[0] as string
+  .filter(([, value]: [string, number[]]) => value[0] === date.date() && value[1] === date.month() + 1)
+  .flat()[0] as string;
 
   useEffect(() => {
     const timer = setInterval(() => setDate(now()), 1000)

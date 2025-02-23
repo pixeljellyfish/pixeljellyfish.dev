@@ -8,14 +8,14 @@ interface Props {
 const { repo, id } = Astro.props;
 
 // Fetch repository data during build time
-const res = await fetch(`https://api.github.com/repos/${repo}`);
+const res = await fetch(`https://api.github.com/pixeljellyfish/repos/${repo}`);
 const data = await res.json();
 
 // Destructure the necessary fields from the fetched data
 const { stargazers_count, name, description } = data;
 ---
 <a
-    href={`https://github.com/${repo}`}
+    href={`https://github.com/pixeljellyfish/${repo}`}
     rel="noopener noreferrer"
     target="_blank"
     class="flex-grow h-24 focus:outline-none transition duration-300 ease-in-out transform hover:scale-105 p-3 rounded-md border border-gray-800 dark:border-gray-400 shadow flex items-center justify-between"

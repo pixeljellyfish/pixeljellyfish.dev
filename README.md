@@ -1,10 +1,11 @@
 # pixeljellyfish's Website
 
-pixeljellyfish's Website written using Astro
+pixeljellyfish's Website written using Astro.
 
-# Commands
+## Commands
 
 All commands are run from the root of the project, from a terminal:
+
 
 | Command                 | Action                                           |
 | :---------------------- | :----------------------------------------------- |
@@ -15,7 +16,7 @@ All commands are run from the root of the project, from a terminal:
 | `pnpm run astro ...`    | Run CLI commands like `astro add`, `astro check` |
 | `pnpm run astro --help` | Get help using the Astro CLI                     |
 
-# Credits
+## Credits
 
 - [Ven](https://github.com/ven) for the ActivityCard and Time components
-- [itsnebulalo](https://github.com/itsnebulalol/itsnebula.net) for initial inspiration
+- [itsnebulalo](https://github.com/itsnebulalol/itsnebula.net) for initial inspiration- [itsnebulalo](https://github.com/itsnebulalol/itsnebula.net) for initial inspiration
