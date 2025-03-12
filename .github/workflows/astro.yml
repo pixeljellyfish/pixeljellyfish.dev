@@ -6,7 +6,6 @@ on:
   # Runs on pushes targeting the default branch
   push:
     branches: ["Development"]
-
   # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
 
@@ -29,7 +28,7 @@ env:
 jobs:
   build:
     name: Build
-    runs-on: ubuntu-24.04  # Change to 'ubuntu-22.04' or 'ubuntu-24.04'
+    runs-on: ubuntu-24.04
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -70,6 +69,8 @@ jobs:
             --site "${{ steps.pages.outputs.origin }}" \
             --base "${{ steps.pages.outputs.base_path }}"
         working-directory: ${{ env.BUILD_PATH }}
+        env:
+          GH_TOKEN: ${{ secrets.GH_PAT }} # Add the secret here for the build step
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
@@ -80,7 +81,7 @@ jobs:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
     needs: build
-    runs-on: ubuntu-24.04  # Change to 'ubuntu-22.04' or 'ubuntu-24.04'
+    runs-on: ubuntu-24.04
     name: Deploy
     steps:
       - name: Deploy to GitHub Pages
