@@ -77,18 +77,18 @@ const DiscordStatus = () => {
     }, []); // Empty dependency array ensures this runs only once on mount
 
     // Utility function to format elapsed time since the activity started
-    const formatElapsedTime = (start: number): string => {
-        // Calculate total seconds elapsed from the start timestamp to now
-        const totalSeconds = Math.floor((Date.now() - start) / 1000);
+const formatElapsedTime = (start: number): string => {
+    // Calculate total seconds elapsed from the start timestamp to now
+    const totalSeconds = Math.floor((Date.now() - start) / 1000);
 
-        // Convert seconds to hours, minutes, and remaining seconds
-        const hours = Math.floor(totalSeconds / 3600);
-        const minutes = Math.floor(totalSeconds / 60); // Note: This should be (totalSeconds % 3600) / 60 for accuracy
-        const seconds = totalSeconds % 60;
+    // Convert seconds to hours, minutes, and remaining seconds
+    const hours = Math.floor(totalSeconds / 3600);
+    const minutes = Math.floor((totalSeconds % 3600) / 60); // Corrected to show minutes within the hour
+    const seconds = totalSeconds % 60;
 
-        // Return formatted string (e.g., "2h 34m 15s")
-        return `${hours}h ${minutes}m ${seconds}s`;
-    };
+    // Return formatted string (e.g., "2h 34m 15s")
+    return `${hours}h ${minutes}m ${seconds}s`;
+};
 
     // Render the component UI
     return (
