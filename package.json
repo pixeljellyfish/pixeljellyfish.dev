@@ -39,6 +39,7 @@
     }
   },
   "devDependencies": {
-    "@tailwindcss/typography": "^0.5.9"
+    "@tailwindcss/typography": "^0.5.9",
+    "critical": "^7.2.1"
   }
 }
