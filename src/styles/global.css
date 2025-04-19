@@ -29,8 +29,13 @@
     }
 }
 
+body {
+    cursor: none;
+  }
+
 .clip {
     -webkit-background-clip: text;
+    background-clip: text;
     -webkit-text-fill-color: transparent;
 }
 
@@ -80,4 +85,15 @@
 
 .prose a:visited:visited:active {
     @apply text-purple-700 dark:text-purple-600;
+}
+
+.interactive {
+    pointer-events: auto;
+    z-index: 20;
+    position: relative;
+  }
+
+button {
+  display: block !important; /* Ensure the button is displayed */
+  visibility: visible !important; /* Ensure it's not hidden */
 }

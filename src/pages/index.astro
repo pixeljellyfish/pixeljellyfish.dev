@@ -8,7 +8,6 @@ import SkillCard from '@components/SkillCard.astro';
 import SocialIcon from '@components/SocialIcon.astro';
 import { Icon } from 'astro-icon';
 
-
 // Fetch weather data during build time
 const res = await fetch(`https://api.openweathermap.org/data/2.5/weather?q=gracemere&units=metric&appid=854b0fbcd9fb2e7ab21c0afee1efde32&lang=en`);
 const data = await res.json();
@@ -17,84 +16,84 @@ const temp_f = temp_c * 9 / 5 + 32;
 ---
 
 <Layout>
-    <!-- Inline critical CSS (generate separately using a tool like Critical) -->
-    <style>
-      /* Placeholder for inlined critical CSS */
-      /* Example: h1 { font-size: 2.5rem; margin-bottom: 0.25rem; } */
-    </style>
-    <!-- Defer non-critical CSS -->
-    <link rel="stylesheet" href="/_astro/index.Bpl_MU_A.css" media="print" onload="this.media='all'">
-
     <!-- Hero -->
-    <h1 class="mb-1">
-      I'm <span class="bg-gradient-to-r from-blue-600 to-[#ff6c7b] dark:from-blue-300 dark:to-[#ffacb4] animate-[gradient_3s_ease-in-out_infinite] clip">Pixeljellyfish</span>,
-      a developer from Brisbane Australia.
+    <h1 class="mb-1 text-white interactive">
+      <span class="bg-gradient-to-r from-blue-600 to-[#ff6c7b] animate-[gradient_3s_ease-in-out_infinite] clip">I'm  Pixeljellyfish,
+      a developer from Brisbane Australia.</span>
     </h1>
-    <h2 class="font-normal mb-2">
-      <span id="weather" class="font-medium">{Math.round(temp_c)}°C</span> in Brisbane Australia
+    <h2 class="font-normal mb-2 text-sky-300 interactive">
+      <span id="weather" class="font-medium text-sky-300">{Math.round(temp_c)}°C</span> in Brisbane Australia
     </h2>
-    <h3 class="font-normal mb-4">
-      <Icon name="mdi:clock" class="fill-neutral-900 dark:fill-white h-5 inline" /> <Time client:only="react" />
+    <h3 class="font-normal mb-4 text-amber-300 interactive">
+      <Icon name="mdi:clock" class="fill-amber-500 h-5 inline" /> <Time client:only="react" />
     </h3>
-    <p class="mb-4 text-gray-600 dark:text-gray-400">
-      I'm a <span class="text-green-600 dark:text-green-400">developer</span> who loves to create and contribute to <span class="text-purple-600 dark:text-purple-400">open-source</span> projects. I'm currently working on a few <span class="text-blue-600 dark:text-blue-400">projects</span>, and I'm always looking for new opportunities to learn and grow.
+    <p class="mb-4 text-white interactive">
+      I'm a <span class="text-green-600">developer</span> who loves to create and contribute to <span class="text-purple-600">open-source</span> projects. I'm currently working on a few <span class="text-blue-600">projects</span>, and I'm always looking for new opportunities to learn and grow.
     </p>
-    <div class="grid grid-flow-col w-48 mt-3 text-lg mb-5">
+    <div class="grid grid-flow-col w-48 mt-3 text-lg mb-5 interactive">
       <SocialIcon name="Twitter" href="https://twitter.com/pixeljellyfish" icon="twitter" />
       <SocialIcon name="codedex" href="https://www.codedex.io/@Pixeljellyfish" icon="codedex" />
       <SocialIcon name="Discord" href="https://discord.gg/d7n9hZzMXn" icon="discord" />
       <SocialIcon name="Email" href="mailto:me@devpixel12@gmail.com" icon="gmail" />
     </div>
-    <div class="grid grid-cols-1 md:grid-cols-4 gap-10">
+    <div class="grid grid-cols-1 md:grid-cols-4 gap-10 interactive">
       <MusicCard client:only="react"/>
       <DiscordStatus client:only="react"/>
     </div>
 
     <!-- Projects -->
-    <h2 class="font-medium mt-12">Projects</h2>
-    <p class="mb-4 text-gray-600 dark:text-gray-400">
-      These are <span class="text-orange-600 dark:text-orange-400">projects</span> that I have either <span class="text-red-600 dark:text-red-400">created</span> or contributed to. I only feature my <span class="text-yellow-600 dark:text-yellow-400">favorite</span> projects here.
+    <h2 class="font-medium mt-12 text-white interactive">Projects</h2>
+    <p class="mb-4 text-white interactive">
+      These are <span class="text-orange-600">projects</span> that I have either <span class="text-red-600">created</span> or contributed to. I only feature my <span class="text-yellow-600">favorite</span> projects here.
     </p>
-    <div class="grid grid-cols-1 md:grid-cols-2 gap-6" style="min-height: 216px;">
-      <ProjectCard repo="c0mebackf0lders" id="4ZHCtv" />
-      <ProjectCard repo="pixeljellyfish.dev" id="xGHSiy" />
-      <ProjectCard repo="repo" id="eZ2hS8" />
-      <ProjectCard repo="OS-Stuff" id="y5Bs8x" />
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 interactive" style="min-height: 216px;">
+      <ProjectCard repo="c0mebackf0lders" id="4ZHCtv" bgColor="bg-violet-600" />
+      <ProjectCard repo="pixeljellyfish.dev" id="xGHSiy" bgColor="bg-indigo-600" />
+      <ProjectCard repo="repo" id="eZ2hS8" bgColor="bg-lime-500" />
+      <ProjectCard repo="OS-Stuff" id="y5Bs8x" bgColor="bg-emerald-600" />
     </div>
 
     <!-- Skills -->
-    <h2 class="font-medium mt-12">Skills</h2>
-    <p class="mb-4 text-gray-600 dark:text-gray-400">
-      These are some of the <span class="text-cyan-600 dark:text-cyan-400">skills</span> I use to <span class="text-pink-600 dark:text-pink-400">create</span> my <span class="text-lime-600 dark:text-lime-400">projects</span>.
+    <h2 class="font-medium mt-12 text-white interactive">Skills</h2>
+    <p class="mb-4 text-white interactive">
+      These are some of the <span class="text-cyan-600">skills</span> I use to <span class="text-pink-600">create</span> my <span class="text-lime-600">projects</span>.
     </p>
-    <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 mt-4">
-      <SkillCard name="VS Code" icon="vscode-icons:file-type-vscode2" website="https://code.visualstudio.com" />
-      <SkillCard name="Figma" icon="logos:figma" website="https://www.figma.com" />
-      <SkillCard name="Javascript" icon="logos:javascript" website="https://developer.mozilla.org/en-US/docs/Web/JavaScript" />
-      <SkillCard name="Typescript" icon="logos:typescript-icon" website="https://www.typescriptlang.org" />
-      <SkillCard name="Python" icon="logos:python" website="https://www.python.org" />
-      <SkillCard name="Swift" icon="logos:swift" website="https://www.swift.org" />
-      <SkillCard name="HTML" icon="logos:html-5" website="https://developer.mozilla.org/en-US/docs/Web/HTML" />
-      <SkillCard name="Tailwind" icon="logos:tailwindcss-icon" website="https://tailwindcss.com" />
-      <SkillCard name="c++" icon="logos:c-plusplus" website="https://isocpp.org" />
-      <SkillCard name="React" icon="logos:react" website="https://reactjs.org" />
-      <SkillCard name="Bash" icon="logos:bash-icon" website="https://www.gnu.org/software/bash/" />
-      <SkillCard name="Astro" icon="vscode-icons:file-type-astro" website="https://astro.build" />
+    <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 mt-4 text-white interactive">
+      <SkillCard name="VS Code" icon="vscode-icons:file-type-vscode2" website="https://code.visualstudio.com" bgColor="bg-blue-700" />
+      <SkillCard name="Figma" icon="logos:figma" website="https://www.figma.com" bgColor="bg-purple-600" />
+      <SkillCard name="Javascript" icon="logos:javascript" website="https://developer.mozilla.org/en-US/docs/Web/JavaScript" bgColor="bg-yellow-500" />
+      <SkillCard name="Typescript" icon="logos:typescript-icon" website="https://www.typescriptlang.org" bgColor="bg-blue-600" />
+      <SkillCard name="Python" icon="logos:python" website="https://www.python.org" bgColor="bg-blue-800" />
+      <SkillCard name="Swift" icon="logos:swift" website="https://www.swift.org" bgColor="bg-orange-600" />
+      <SkillCard name="HTML" icon="logos:html-5" website="https://developer.mozilla.org/en-US/docs/Web/HTML" bgColor="bg-orange-500" />
+      <SkillCard name="Tailwind" icon="logos:tailwindcss-icon" website="https://tailwindcss.com" bgColor="bg-teal-500" />
+      <SkillCard name="c++" icon="logos:c-plusplus" website="https://isocpp.org" bgColor="bg-blue-900" />
+      <SkillCard name="React" icon="logos:react" website="https://reactjs.org" bgColor="bg-cyan-500" />
+      <SkillCard name="Bash" icon="logos:bash-icon" website="https://www.gnu.org/software/bash/" bgColor="bg-green-700" />
+      <SkillCard name="Astro" icon="vscode-icons:file-type-astro" website="https://astro.build" bgColor="bg-gradient-to-r from-purple-700 to-orange-600" />
     </div>
+    <footer class="mt-12 mb-4 flex flex-row space-x-4 interactive">
+      <br/>
+      <br/>
+      <p class="text-sm text-indigo-400">© 2023 Pixeljellyfish. All rights reserved.</p>
+      <p class="text-sm text-emerald-400">Made with <span class="text-red-600">Astro</span> and <span class="text-blue-600">Tailwind CSS</span>.</p>
+      <br/>
+      <p class="text-sm text-rose-400">Powered by <span class="text-green-600">Vercel</span>.</p>
+      <p class="text-sm text-violet-400">Hosted on <span class="text-blue-600">GitHub</span>.</p>
+      <br/>
+      <p class="text-sm text-lime-400">Built with <span class="text-purple-600">love</span> and <span class="text-red-600">passion</span>.</p>
+    </footer>
 </Layout>
 
+<!-- Client-side scripts -->
+<script src="http://localhost:8097"></script>
 <script>
-  // Client-side script for weather hover effect
-  const weatherElement = document.getElementById('weather');
-  const tempC = Number.parseFloat(weatherElement?.textContent) || 0;
-  const tempF = Math.round(tempC * 9 / 5 + 32);
-
-  if (weatherElement) {
-    weatherElement.addEventListener('mouseover', () => {
-      weatherElement.innerHTML = `${tempF}°F`;
-    });
-    weatherElement.addEventListener('mouseout', () => {
-      weatherElement.innerHTML = `${Math.round(tempC)}°C`;
-    });
-  }
+  document.addEventListener('DOMContentLoaded', () => {
+    console.log('DOM loaded, initializing jellyfish');
+    import('../scripts/jellyfish.js').then(({ initJellyfishAnimation }) => {
+      const cleanup = initJellyfishAnimation();
+      window.addEventListener('beforeunload', cleanup);
+    }).catch(err => console.error('Failed to load jellyfish.js:', err));
+  });
 </script>
+<script src="/src/scripts/weather.js" defer></script>

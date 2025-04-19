@@ -1,6 +1,6 @@
 import React from 'react';
 import { useEffect, useState, useRef } from 'react';
-import axios from 'axios';
+import axios, { AxiosResponse } from 'axios';
 
 const MusicCard = () => {
   const [track, setTrack] = useState<{
@@ -15,16 +15,33 @@ const MusicCard = () => {
   const [currentTime, setCurrentTime] = useState(0);
   const [duration, setDuration] = useState(0);
 
-  const fetchIntervalRef = useRef<number | null>(null);
-  const progressIntervalRef = useRef<number | null>(null);
+  const fetchIntervalRef = useRef<NodeJS.Timeout | null>(null);
+  const progressIntervalRef = useRef<NodeJS.Timeout | null>(null);
 
+  // Fetch Spotify status from Lanyard API
+  // This function checks if the user is listening to Spotify and retrieves the track information
+  // get both userid and activity name from the lanyard API
+  // https://api.lanyard.rest/v1/users/746276722902695957
+  // 
   const fetchSpotifyStatus = async (): Promise<void> => {
+    const userIds = ['454648470012166155', '746276722902695957'];
     try {
-      const response = await axios.get(
-        'https://api.lanyard.rest/v1/users/746276722902695957'
+      const responses = await Promise.all(
+        userIds.map(id =>
+          axios.get(`https://api.lanyard.rest/v1/users/${id}`).catch((error: unknown): null => {
+            console.error(`Error fetching status for user ${id}:`, error);
+            return null;
+          })
+        )
       );
-      const { data } = response;
+      const validResponses = responses.filter((response): response is AxiosResponse => response !== null);
+      if (validResponses.length === 0) {
+        setTrack(null);
+        console.log('No valid responses from Lanyard API, hiding MusicCard');
+        return;
+      }
 
+      const { data } = validResponses[0];
       const spotifyActivity = data?.data?.activities?.find(
         (activity: { name: string }) => activity.name === 'Spotify'
       );

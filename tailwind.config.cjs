@@ -2,6 +2,7 @@
 const defaultTheme = require("tailwindcss/defaultTheme");
 
 module.exports = {
+    darkMode: 'class', // Enable dark mode based on the 'dark' class
     content: ["./src/**/*.{astro,html,js,jsx,md,mdx,svelte,ts,tsx,vue}"],
     theme: {
         extend: {
@@ -36,7 +37,6 @@ module.exports = {
                                 color: theme('colors.blue.500'),
                             },
                         },
-            
                         'code::before': {
                             content: '""',
                         },
@@ -54,7 +54,6 @@ module.exports = {
                                 color: theme('colors.purple.400'),
                             },
                         },
-
                         h1: {
                             color: theme('colors.gray.100'),
                         },
@@ -73,15 +72,12 @@ module.exports = {
                         h6: {
                             color: theme('colors.gray.100'),
                         },
-            
                         strong: {
                             color: theme('colors.gray.100'),
                         },
-            
                         code: {
                             color: theme('colors.gray.300'),
                         },
-            
                         figcaption: {
                             color: theme('colors.gray.500'),
                         },
