@@ -19,10 +19,10 @@ try {
     temp_c = data.main.temp;
     temp_f = temp_c * 9 / 5 + 32;
   } else {
-    console.error('Weather API request failed:', res.statusText);
+    console.error('Weather API request failed:', res.statusText); // Handle error response
   }
 } catch (error) {
-  console.error('Error fetching weather data:', error);
+  console.error('Error fetching weather data:', error); // Handle fetch error
 }
 ---
 
