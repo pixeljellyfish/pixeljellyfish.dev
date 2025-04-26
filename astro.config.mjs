@@ -11,3 +11,4 @@ export default defineConfig({
     },
   },
 });
+// https://astro.build/config
