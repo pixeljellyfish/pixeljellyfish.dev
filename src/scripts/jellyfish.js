@@ -1,3 +1,10 @@
+// jellyfish.js
+// This code creates a jellyfish animation on an HTML canvas.
+// It includes jellyfish that follow the mouse and random-moving jellyfish.
+// The jellyfish have tentacles and a gradient effect.
+// The animation also includes bubbles and a wave effect in the background.
+// The jellyfish and bubbles are animated with random movement and scattering behavior.
+// The code is designed to be used in a web environment with an HTML canvas element.
 class Jellyfish {
   constructor(x, y, size, color, isFollower = false, canvas) {
     this.x = x;
@@ -27,7 +34,7 @@ class Jellyfish {
         const scatterDistance = 100; // Scatter within 100px
         if (distance < scatterDistance && distance > 0) {
           // Calculate scattering velocity (away from follower)
-          const scatterStrength = (1 - distance / scatterDistance) * 1; // Reduced from 1.5 to 1
+          const scatterStrength = (1 - distance / scatterDistance) * 1;
           this.vx += (dx / distance) * scatterStrength;
           this.vy += (dy / distance) * scatterStrength;
           this.vx *= 0.95;
@@ -38,23 +45,43 @@ class Jellyfish {
           this.vy += (Math.random() - 0.5) * 0.1;
         }
       }
+
+      // Check for collisions with other non-following jellyfish
+      jellyfishList.forEach(other => {
+        if (other !== this && !other.isFollower && !this.isFollower) {
+          const dx = this.x - other.x;
+          const dy = this.y - other.y;
+          const distance = Math.sqrt(dx * dx + dy * dy);
+          const minDistance = this.size + other.size;
+          if (distance < minDistance && distance > 0) {
+            // Collision detected, apply random bounce
+            const currentSpeed = Math.sqrt(this.vx * this.vx + this.vy * this.vy);
+            const randomAngle = Math.random() * 2 * Math.PI;
+            const newSpeed = currentSpeed * 0.8; // Preserve 80% of speed
+            this.vx = Math.cos(randomAngle) * newSpeed;
+            this.vy = Math.sin(randomAngle) * newSpeed;
+
+            // Also bounce the other jellyfish
+            const otherSpeed = Math.sqrt(other.vx * other.vx + other.vy * other.vy);
+            const otherAngle = Math.random() * 2 * Math.PI;
+            other.vx = Math.cos(otherAngle) * newSpeed;
+            other.vy = Math.sin(otherAngle) * newSpeed;
+
+            // Prevent overlap by pushing them apart
+            const overlap = (minDistance - distance) / 2;
+            const pushX = (dx / distance) * overlap;
+            const pushY = (dy / distance) * overlap;
+            this.x += pushX;
+            this.y += pushY;
+            other.x -= pushX;
+            other.y -= pushY;
+          }
+        }
+      });
+
       // Random movement
       this.x += this.vx;
       this.y += this.vy;
-
-      // Friction near edges (within 50px)
-      const edgeMargin = 50;
-      const friction = 0.95;
-      if (this.x < this.size + edgeMargin) {
-        this.vx *= friction; // Slow down near left edge
-      } else if (this.x > this.canvas.width - this.size - edgeMargin) {
-        this.vx *= friction; // Slow down near right edge
-      }
-      if (this.y < this.size + edgeMargin) {
-        this.vy *= friction; // Slow down near top edge
-      } else if (this.y > this.canvas.height - this.size - edgeMargin) {
-        this.vy *= friction; // Slow down near bottom edge
-      }
 
       // Bounce off edges with random direction
       const currentSpeed = Math.sqrt(this.vx * this.vx + this.vy * this.vy);
@@ -71,9 +98,9 @@ class Jellyfish {
         this.y = Math.max(this.size, Math.min(this.canvas.height - this.size, this.y));
       }
 
-      // Cap velocity magnitude to 2px/frame (reduced from 3)
+      // Cap velocity magnitude to 2px/frame
       const speed = Math.sqrt(this.vx * this.vx + this.vy * this.vy);
-      const maxSpeed = 2.5; // Reduced from 3 to 2
+      const maxSpeed = 2;
       if (speed > maxSpeed) {
         const scale = maxSpeed / speed;
         this.vx *= scale;
