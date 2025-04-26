@@ -18,11 +18,11 @@ const temp_f = temp_c * 9 / 5 + 32;
 <Layout>
     <!-- Hero -->
     <h1 class="mb-1 text-white interactive">
-      <span class="bg-gradient-to-r from-blue-600 to-[#ff6c7b] animate-[gradient_3s_ease-in-out_infinite] clip">I'm  Pixeljellyfish,
-      a developer from Brisbane Australia.</span>
+      I'm <span class="bg-gradient-to-r from-blue-600 to-[#ff6c7b] animate-[gradient_3s_ease-in-out_infinite] clip">Pixeljellyfish</span>,
+      a developer from Brisbane Australia.
     </h1>
     <h2 class="font-normal mb-2 text-sky-300 interactive">
-      <span id="weather" class="font-medium text-sky-300">{Math.round(temp_c)}°C</span> in Brisbane Australia
+      <span id="weather" class="font-medium text-sky-100">{Math.round(temp_c)}°C / {Math.round(temp_f)}°F</span> in Brisbane Australia
     </h2>
     <h3 class="font-normal mb-4 text-amber-300 interactive">
       <Icon name="mdi:clock" class="fill-amber-500 h-5 inline" /> <Time client:only="react" />
@@ -43,7 +43,7 @@ const temp_f = temp_c * 9 / 5 + 32;
 
     <!-- Projects -->
     <h2 class="font-medium mt-12 text-white interactive">Projects</h2>
-    <p class="mb-4 text-white interactive">
+    <p class=" beef mb-4 text-white interactive">
       These are <span class="text-orange-600">projects</span> that I have either <span class="text-red-600">created</span> or contributed to. I only feature my <span class="text-yellow-600">favorite</span> projects here.
     </p>
     <div class="grid grid-cols-1 md:grid-cols-2 gap-6 interactive" style="min-height: 216px;">
@@ -72,16 +72,22 @@ const temp_f = temp_c * 9 / 5 + 32;
       <SkillCard name="Bash" icon="logos:bash-icon" website="https://www.gnu.org/software/bash/" bgColor="bg-green-700" />
       <SkillCard name="Astro" icon="vscode-icons:file-type-astro" website="https://astro.build" bgColor="bg-gradient-to-r from-purple-700 to-orange-600" />
     </div>
+
+    <!-- Footer -->
     <footer class="mt-12 mb-4 flex flex-row space-x-4 interactive">
-      <br/>
-      <br/>
-      <p class="text-sm text-indigo-400">© 2023 Pixeljellyfish. All rights reserved.</p>
-      <p class="text-sm text-emerald-400">Made with <span class="text-red-600">Astro</span> and <span class="text-blue-600">Tailwind CSS</span>.</p>
-      <br/>
-      <p class="text-sm text-rose-400">Powered by <span class="text-green-600">Vercel</span>.</p>
-      <p class="text-sm text-violet-400">Hosted on <span class="text-blue-600">GitHub</span>.</p>
-      <br/>
-      <p class="text-sm text-lime-400">Built with <span class="text-purple-600">love</span> and <span class="text-red-600">passion</span>.</p>
+      <p class="text-sm text-indigo-400 hover:scale-105 hover:brightness-125 transition-all duration-300">© 2023 Pixeljellyfish. All rights reserved.</p>
+      <p class="text-sm text-emerald-400 hover:scale-105 hover:brightness-125 transition-all duration-300">Made with <a href="https://astro.build" class="text-orange-600 hover:underline">Astro</a> and <a href="https://tailwindcss.com" class="text-sky-400 hover:underline">Tailwind CSS</a>.</p>
+      <p class="text-sm text-rose-400 hover:scale-105 hover:brightness-125 transition-all duration-300">Powered by <a href="https://vercel.com" class="text-gray-300 hover:underline">Vercel</a>.</p>
+      <p class="text-sm text-violet-400 hover:scale-105 hover:brightness-125 transition-all duration-300">Hosted on <a href="https://github.com" class="text-gray-400 hover:underline">GitHub</a>.</p>
+      <p class="text-sm hover:scale-105 hover:brightness-125 transition-all duration-300">
+        <span class="bg-gradient-to-r from-lime-400 to-emerald-400 bg-clip-text text-transparent">Built with</span> 
+        <span class="text-purple-600 animate-[pulse-rotate_1.5s_ease-in-out_infinite] inline-block" style="text-shadow: 0 0 8px rgba(147, 51, 234, 0.8);"> ❤️</span> 
+        <span class="bg-gradient-to-r from-lime-400 to-teal-400 bg-clip-text text-transparent animate-[wave_2s_ease-in-out_infinite]">and</span> 
+        <span class="text-red-600 relative" style="text-shadow: 0 0 8px rgba(239, 68, 68, 0.8);">
+          passion
+          <span class="absolute inset-0 opacity-0 hover:opacity-100 hover:animate-[sparkle_0.5s_ease-in-out] bg-clip-text text-transparent bg-gradient-to-r from-red-600 to-yellow-400 transition-opacity duration-300">passion</span>
+        </span>.
+      </p>
     </footer>
 </Layout>
 
