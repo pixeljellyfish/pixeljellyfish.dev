@@ -5,8 +5,6 @@ interface Props {
     icon: string;
 }
 const { name, href, icon } = Astro.props;
-
-import { Icon } from 'astro-icon';
 ---
 
 <a
@@ -16,5 +14,9 @@ import { Icon } from 'astro-icon';
     rel="noopener noreferrer"
     target="_blank"
 >
-    <Icon name={icon} class="fill-gray-800 dark:fill-white h-[1.8em] w-[1.8em] inline" />
+    <img
+        src={`/src/icons/${icon}.svg`}
+        alt={`${name} icon`}
+        class="h-[1.5em] w-[1.5em] sm:h-[1.8em] sm:w-[1.8em] inline"
+    />
 </a>
