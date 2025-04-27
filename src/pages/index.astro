@@ -8,7 +8,7 @@ import SkillCard from '@components/SkillCard.astro';
 import SocialIcon from '@components/SocialIcon.astro';
 import { Icon } from 'astro-icon';
 
-let temp_c = 25; // Default value
+let temp_c = 25;
 let temp_f = 77;
 try {
   const apiKey = import.meta.env.OPENWEATHER_API_KEY || '854b0fbcd9fb2e7ab21c0afee1efde32';
@@ -75,16 +75,22 @@ try {
       <SkillCard name="Bash" icon="logos:bash-icon" website="https://www.gnu.org/software/bash/" bgColor="bg-green-700" />
       <SkillCard name="Astro" icon="vscode-icons:file-type-astro" website="https://astro.build" bgColor="bg-gradient-to-r from-purple-700 to-orange-600" />
     </div>
-    <footer class="mt-12 mb-4 flex flex-row space-x-4 interactive">
-      <br/>
-      <br/>
-      <p class="text-sm text-indigo-400">© 2023 Pixeljellyfish. All rights reserved.</p>
-      <p class="text-sm text-emerald-400">Made with <span class="text-red-600">Astro</span> and <span class="text-blue-600">Tailwind CSS</span>.</p>
-      <br/>
-      <p class="text-sm text-rose-400">Powered by <span class="text-green-600">Vercel</span>.</p>
-      <p class="text-sm text-violet-400">Hosted on <span class="text-blue-600">GitHub</span>.</p>
-      <br/>
-      <p class="text-sm text-lime-400">Built with <span class="text-purple-600">love</span> and <span class="text-red-600">passion</span>.</p>
+    <footer class="mt-12 mb-4 flex flex-col sm:flex-row sm:space-x-4 space-y-2 sm:space-y-0 interactive">
+      <p class="text-sm text-indigo-400 hover:scale-105 hover:brightness-125 transition-all duration-300">
+        © 2023 Pixeljellyfish. All rights reserved.
+      </p>
+      <p class="text-sm text-emerald-400 hover:scale-105 hover:brightness-125 transition-all duration-300">
+        Made with <a href="https://astro.build" class="text-[#FF5D01] hover:underline">Astro</a> and <a href="https://tailwindcss.com" class="text-[#38BDF8] hover:underline">Tailwind CSS</a>.
+      </p>
+      <p class="text-sm text-rose-400 hover:scale-105 hover:brightness-125 transition-all duration-300">
+        Powered by <a href="https://vercel.com" class="text-black dark:text-white hover:underline">Vercel</a>.
+      </p>
+      <p class="text-sm text-violet-400 hover:scale-105 hover:brightness-125 transition-all duration-300">
+        Hosted on <a href="https://github.com" class="text-[#24292E] dark:text-gray-300 hover:underline">GitHub</a>.
+      </p>
+      <p class="text-sm text-lime-400 hover:scale-105 hover:brightness-125 transition-all duration-300">
+        Designed with <span class="text-purple-600 text-lg animate-[bounce_1s_ease-in-out_infinite] inline-block">❤️</span> and <span class="text-red-600">jellyfish magic</span>.
+      </p>
     </footer>
 </Layout>
 
