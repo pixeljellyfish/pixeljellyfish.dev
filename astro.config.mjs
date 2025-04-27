@@ -5,10 +5,17 @@ import tailwind from '@astrojs/tailwind';
 export default defineConfig({
   integrations: [react(), tailwind()],
   vite: {
-    assetsInclude: ['*.svg'], // Use single wildcard
-    optimizeDeps: {
-      exclude: ['*.svg'], // Use single wildcard
-    },
+    plugins: [
+      {
+        name: 'vite-raw-plugin-fix',
+        enforce: 'pre',
+        transform(code, id) {
+          if (id.includes('?raw')) {
+            return { code: `export default ${JSON.stringify(code)}`, map: null };
+          }
+        },
+      },
+    ],
+    logLevel: 'error', // Suppress warnings
   },
 });
-// https://astro.build/config

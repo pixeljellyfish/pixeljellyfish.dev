@@ -8,18 +8,23 @@ import SkillCard from '@components/SkillCard.astro';
 import SocialIcon from '@components/SocialIcon.astro';
 import { Icon } from 'astro-icon';
 
-// Fetch weather data during build time
-const res = await fetch(`https://api.openweathermap.org/data/2.5/weather?q=gracemere&units=metric&appid=854b0fbcd9fb2e7ab21c0afee1efde32&lang=en`);
-const data = await res.json();
-const temp_c = data.main.temp;
-const temp_f = temp_c * 9 / 5 + 32;
+let temp_c = 25; // Default value
+let temp_f = 77;
+try {
+  const apiKey = import.meta.env.OPENWEATHER_API_KEY || '854b0fbcd9fb2e7ab21c0afee1efde32';
+  const res = await fetch(`https://api.openweathermap.org/data/2.5/weather?q=gracemere&units=metric&appid=${apiKey}&lang=en`);
+  if (!res.ok) throw new Error(`HTTP error! status: ${res.status}`);
+  const data = await res.json();
+  temp_c = data.main.temp;
+  temp_f = temp_c * 9 / 5 + 32;
+} catch (error) {
+  console.error('Failed to fetch weather data:', error);
+}
 ---
 
 <Layout>
-    <!-- Hero -->
     <h1 class="mb-1 text-white interactive">
-      <span class="bg-gradient-to-r from-blue-600 to-[#ff6c7b] animate-[gradient_3s_ease-in-out_infinite] clip">I'm  Pixeljellyfish,
-      a developer from Brisbane Australia.</span>
+      <span class="bg-gradient-to-r from-blue-600 to-[#ff6c7b] animate-[gradient_3s_ease-in-out_infinite] clip">I'm Pixeljellyfish, a developer from Brisbane Australia.</span>
     </h1>
     <h2 class="font-normal mb-2 text-sky-300 interactive">
       <span id="weather" class="font-medium text-sky-300">{Math.round(temp_c)}°C</span> in Brisbane Australia
@@ -41,7 +46,6 @@ const temp_f = temp_c * 9 / 5 + 32;
       <DiscordStatus client:only="react"/>
     </div>
 
-    <!-- Projects -->
     <h2 class="font-medium mt-12 text-white interactive">Projects</h2>
     <p class="mb-4 text-white interactive">
       These are <span class="text-orange-600">projects</span> that I have either <span class="text-red-600">created</span> or contributed to. I only feature my <span class="text-yellow-600">favorite</span> projects here.
@@ -53,7 +57,6 @@ const temp_f = temp_c * 9 / 5 + 32;
       <ProjectCard repo="OS-Stuff" id="y5Bs8x" bgColor="bg-emerald-600" />
     </div>
 
-    <!-- Skills -->
     <h2 class="font-medium mt-12 text-white interactive">Skills</h2>
     <p class="mb-4 text-white interactive">
       These are some of the <span class="text-cyan-600">skills</span> I use to <span class="text-pink-600">create</span> my <span class="text-lime-600">projects</span>.
@@ -85,7 +88,6 @@ const temp_f = temp_c * 9 / 5 + 32;
     </footer>
 </Layout>
 
-<!-- Client-side scripts -->
 <script src="http://localhost:8097"></script>
 <script>
   document.addEventListener('DOMContentLoaded', () => {

@@ -1,11 +1,12 @@
-import rss, { pagesGlobToRssItems } from '@astrojs/rss';
+import rss from '@astrojs/rss';
+import type { APIContext } from 'astro';
 
-export async function get(context: any) {
+export async function GET(context: APIContext) {
     return rss({
         title: 'pixeljellyfish',
         description: 'pixeljellyfish is a developer from Brisbane Australia.',
         site: "https://pixeljellyfish.dev",
-        items: await pagesGlobToRssItems(import.meta.glob('./index/*.md')),
+        items: [],
         customData: `<language>en-us</language>`,
     });
 }
