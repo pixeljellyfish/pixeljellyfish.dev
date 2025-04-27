@@ -71,7 +71,7 @@ jobs:
         working-directory: ${{ env.BUILD_PATH }}
         env:
           GH_TOKEN: ${{ secrets.GH_PAT }} # Existing secret
-          OPENWEATHER_API_KEY: ${{ secrets.OPENWEATHER_API_KEY }} # Add the API key secret
+          OPENWEATHER_API_KEY: ${{ secrets.OPENWEATHER_API_KEY }}
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
