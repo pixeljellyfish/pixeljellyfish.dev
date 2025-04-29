@@ -20,7 +20,7 @@ const temp_f = temp_c * 9 / 5 + 32; // Convert to Fahrenheit manually
       <span class="bg-gradient-to-r from-blue-600 to-[#ff6c7b] animate-[gradient_3s_ease-in-out_infinite] clip">I'm Pixeljellyfish, a developer from Brisbane Australia.</span>
     </h1>
     <h2 class="font-normal mb-2 text-sky-300 interactive">
-      <span id="weather" class="font-medium text-sky-300">{Math.round(temp_c)}°C</span> in Brisbane Australia
+      <span id="weather" class="font-medium text-sky-300" data-celsius={Math.round(temp_c)} data-fahrenheit={Math.round(temp_f)}>{Math.round(temp_c)}°C</span> in Brisbane Australia
     </h2>
     <h3 class="font-normal mb-4 text-amber-300 interactive">
       <Icon name="mdi:clock" class="fill-amber-500 h-5 inline" /> <Time client:only="react" />
@@ -68,22 +68,26 @@ const temp_f = temp_c * 9 / 5 + 32; // Convert to Fahrenheit manually
       <SkillCard name="Bash" icon="logos:bash-icon" website="https://www.gnu.org/software/bash/" bgColor="bg-green-700" />
       <SkillCard name="Astro" icon="vscode-icons:file-type-astro" website="https://astro.build" bgColor="bg-gradient-to-r from-purple-700 to-orange-600" />
     </div>
-    <footer class="mt-12 mb-4 flex flex-col sm:flex-row sm:space-x-4 space-y-2 sm:space-y-0 interactive">
-      <p class="text-sm text-indigo-400 hover:scale-105 hover:brightness-125 transition-all duration-300">
-        © 2023 Pixeljellyfish. All rights reserved.
+    <footer class="mt-12 mb-4 flex flex-row items-center justify-between interactive relative">
+      <div class="flex space-x-7">
+        <p class="text-sm text-indigo-400 hover:scale-105 hover:brightness-125 transition-all duration-300">
+          © 2023 Pixeljellyfish. All rights reserved
+        </p>
+        <p class="text-sm text-emerald-400 hover:scale-105 hover:brightness-125 transition-all duration-300">
+          Made with <a href="https://astro.build" class="text-[#FF5D01] hover:underline">Astro</a> and <a href="https://tailwindcss.com" class="text-[#38BDF8] hover:underline">Tailwind CSS</a>
+        </p>
+      </div>
+      <p class="text-sm text-lime-400 hover:scale-105 hover:brightness-125 transition-all duration-300 absolute left-1/2 transform -translate-x-1/2">
+        Designed with <span class="text-purple-600 text-lg animate-[bounce_1s_ease-in-out_infinite] inline-block">❤️</span> and <span class="text-red-600">jellyfish magic</span>
       </p>
-      <p class="text-sm text-emerald-400 hover:scale-105 hover:brightness-125 transition-all duration-300">
-        Made with <a href="https://astro.build" class="text-[#FF5D01] hover:underline">Astro</a> and <a href="https://tailwindcss.com" class="text-[#38BDF8] hover:underline">Tailwind CSS</a>.
-      </p>
-      <p class="text-sm text-rose-400 hover:scale-105 hover:brightness-125 transition-all duration-300">
-        Powered by <a href="https://vercel.com" class="text-black dark:text-white hover:underline">Vercel</a>.
-      </p>
-      <p class="text-sm text-violet-400 hover:scale-105 hover:brightness-125 transition-all duration-300">
-        Hosted on <a href="https://github.com" class="text-[#24292E] dark:text-gray-300 hover:underline">GitHub</a>.
-      </p>
-      <p class="text-sm text-lime-400 hover:scale-105 hover:brightness-125 transition-all duration-300">
-        Designed with <span class="text-purple-600 text-lg animate-[bounce_1s_ease-in-out_infinite] inline-block">❤️</span> and <span class="text-red-600">jellyfish magic</span>.
-      </p>
+      <div class="flex space-x-10 mr-40">
+        <p class="text-sm text-rose-400 hover:scale-105 hover:brightness-125 transition-all duration-300">
+          Powered by <a href="https://vercel.com" class="text-black dark:text-white hover:underline">Vercel</a>
+        </p>
+        <p class="text-sm text-violet-400 hover:scale-105 hover:brightness-125 transition-all duration-300">
+          Hosted on <a href="https://github.com" class="text-[#24292E] dark:text-gray-300 hover:underline">GitHub</a>
+        </p>
+      </div>
     </footer>
 </Layout>
 
@@ -96,4 +100,24 @@ const temp_f = temp_c * 9 / 5 + 32; // Convert to Fahrenheit manually
     }).catch(err => console.error('Failed to load jellyfish.js:', err));
   });
 </script>
-<script src="/scripts/weather.js" defer></script>
+<script defer>
+  console.log('weather.js: Script loaded');
+  const weatherSpan = document.getElementById('weather');
+  if (weatherSpan) {
+    console.log('weather.js: Found weather span', weatherSpan);
+    console.log('weather.js: Celsius:', weatherSpan.dataset.celsius, 'Fahrenheit:', weatherSpan.dataset.fahrenheit);
+    const celsius = parseInt(weatherSpan.dataset.celsius, 10);
+    const fahrenheit = parseInt(weatherSpan.dataset.fahrenheit, 10);
+
+    weatherSpan.addEventListener('mouseenter', () => {
+      console.log('weather.js: Mouse enter, setting to Fahrenheit');
+      weatherSpan.textContent = `${fahrenheit}°F`;
+    });
+    weatherSpan.addEventListener('mouseleave', () => {
+      console.log('weather.js: Mouse leave, setting to Celsius');
+      weatherSpan.textContent = `${celsius}°C`;
+    });
+  } else {
+    console.error('weather.js: Could not find weather span');
+  }
+</script>

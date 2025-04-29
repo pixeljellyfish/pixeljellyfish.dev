@@ -1,9 +1,9 @@
 {
   "compilerOptions": {
     "lib": ["es2016", "dom"],
-    "jsx": "react",
+    "jsx": "preserve",
     "esModuleInterop": true,
-    "module": "es2020",
+    "module": "ESNext",
     "moduleResolution": "node",
     "noImplicitAny": true,
     "noImplicitReturns": true,
@@ -13,6 +13,12 @@
       "@layouts/*": ["src/layouts/*"],
       "@styles/*": ["src/styles/*"],
       "@utils/*": ["src/utils/*"]
-    }
+    },
+    "allowImportingTsExtensions": true,
+    "noEmit": true,
+    "isolatedModules": true,
+    "target": "ESNext",
+    "strict": true,
+    "skipLibCheck": true
   }
 }
