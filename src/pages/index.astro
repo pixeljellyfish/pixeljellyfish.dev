@@ -22,6 +22,12 @@ const temp_f = temp_c * 9 / 5 + 32; // Convert to Fahrenheit manually
     <h2 class="font-normal mb-2 text-sky-300 interactive">
       <span id="weather" class="font-medium text-sky-300" data-celsius={Math.round(temp_c)} data-fahrenheit={Math.round(temp_f)}>{Math.round(temp_c)}°C</span> in Brisbane Australia
     </h2>
+    <p class="mb-4 text-white interactive" id="celebration-container">
+      <span class="text-rose-500">100</span> commits on GitHub! <span class="text-rose-500">🎉</span>
+      <button class="bg-rose-500 text-white px-4 py-2 rounded hover:bg-rose-600 transition-all duration-300" data-confetti-button>
+        Celebrate with confetti!
+      </button>
+    </p>
     <h3 class="font-normal mb-4 text-amber-300 interactive">
       <Icon name="mdi:clock" class="fill-amber-500 h-5 inline" /> <Time client:only="react" />
     </h3>
@@ -119,5 +125,100 @@ const temp_f = temp_c * 9 / 5 + 32; // Convert to Fahrenheit manually
     });
   } else {
     console.error('weather.js: Could not find weather span');
+  }
+</script>
+
+<script>
+  // Import the confetti library
+  import confetti from 'canvas-confetti';
+
+  // Set the expiration date for the celebration
+  const expirationDate = new Date('2025-05-02'); // Replace with your desired expiration date (YYYY-MM-DD)
+
+  // Check if the current date is past the expiration date
+  const currentDate = new Date();
+  if (currentDate > expirationDate) {
+    // Remove the celebration container and related functionality
+    document.addEventListener('DOMContentLoaded', () => {
+      const celebrationContainer = document.getElementById('celebration-container');
+      if (celebrationContainer) {
+        celebrationContainer.remove(); // Remove the entire container from the DOM
+      }
+    });
+  } else {
+    // Celebration code (only runs if the current date is before the expiration date)
+
+    // Flag to track if the notification has been shown
+    let notificationShown = false;
+
+    // Function to fire confetti
+    function fireConfetti() {
+      const duration = 2 * 1000; // 2 seconds
+      const animationEnd = Date.now() + duration;
+      const defaults = { startVelocity: 30, spread: 360, ticks: 60, zIndex: 9999 };
+
+      const interval = setInterval(() => {
+        const timeLeft = animationEnd - Date.now();
+
+        if (timeLeft <= 0) {
+          clearInterval(interval);
+          return;
+        }
+
+        const particleCount = 50 * (timeLeft / duration);
+        // Fire confetti from random positions across the screen
+        confetti({
+          ...defaults,
+          particleCount,
+          origin: {
+            x: Math.random(), // Random horizontal position
+            y: Math.random() * 0.5, // Random vertical position (top half of the screen)
+          },
+        });
+      }, 250); // Fire every 250ms
+    }
+
+    // Function to create a notification window
+    function createNotification() {
+      const notification = document.createElement('div');
+      notification.className = 'notification fixed top-4 right-4 bg-gray-800 text-white p-4 rounded shadow-lg z-50';
+      notification.innerHTML = `
+        <div class="notification-content">
+          <h2 class="text-lg font-bold">🎉 pixeljellyfish has reached! 🎉</h2>
+          <p>100 commits on GitHub!</p>
+        </div>
+        <button class="close-button bg-red-500 text-white px-2 py-1 rounded hover:bg-red-600 transition">YAY</button>
+      `;
+      document.body.appendChild(notification);
+
+      // Close button functionality
+      const closeButton = notification.querySelector('.close-button');
+      if (closeButton) {
+        closeButton.addEventListener('click', () => {
+          document.body.removeChild(notification);
+        });
+      }
+
+      // Automatically close after 5 seconds
+      setTimeout(() => {
+        if (document.body.contains(notification)) {
+          document.body.removeChild(notification);
+        }
+      }, 5000);
+    }
+
+    // Combine confetti and notification
+    function celebrate() {
+      fireConfetti();
+      if (!notificationShown) {
+        createNotification();
+        notificationShown = true; // Set the flag to true after showing the notification
+      }
+    }
+
+    // Add event listeners to buttons
+    document.querySelectorAll('[data-confetti-button]').forEach(button => {
+      button.addEventListener('click', celebrate);
+    });
   }
 </script>

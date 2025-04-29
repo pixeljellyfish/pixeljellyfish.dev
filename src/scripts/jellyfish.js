@@ -264,8 +264,8 @@ export function initJellyfishAnimation() {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
 
     const gradient = ctx.createLinearGradient(0, 0, 0, canvas.height);
-    gradient.addColorStop(0, 'rgba(0, 0, 50, 1)');
-    gradient.addColorStop(1, 'rgba(0, 50, 100, 1)');
+    gradient.addColorStop(0, 'rgb(3, 65, 127)'); // Light color at the top
+    gradient.addColorStop(1, 'rgb(3, 3, 34)');   // Dark color at the bottom
     ctx.fillStyle = gradient;
     ctx.fillRect(0, 0, canvas.width, canvas.height);
 
