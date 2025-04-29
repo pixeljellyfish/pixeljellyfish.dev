@@ -58,11 +58,12 @@ jobs:
       - name: Update Astro and dependencies
         run: ${{ steps.detect-package-manager.outputs.manager }} install astro@latest @astrojs/tailwind@latest @astrojs/react@latest @astrojs/rss@latest
         working-directory: ${{ env.BUILD_PATH }}
-      - name: Build with Astro
+      - name: Build with Astro and copy to public
         run: |
           ${{ steps.detect-package-manager.outputs.runner }} astro build \
             --site "${{ steps.pages.outputs.origin }}" \
-            --base "${{ steps.pages.outputs.base_path }}"
+            --base "/"
+          rm -rf public/* && cp -r dist/* public/
         working-directory: ${{ env.BUILD_PATH }}
         env:
           GH_TOKEN: ${{ secrets.GH_PAT }}
@@ -70,7 +71,7 @@ jobs:
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
-          path: ${{ env.BUILD_PATH }}/dist
+          path: ${{ env.BUILD_PATH }}/public
 
   deploy:
     environment:

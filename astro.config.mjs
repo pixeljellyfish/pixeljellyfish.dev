@@ -2,6 +2,8 @@ import { defineConfig } from 'astro/config';
 import react from '@astrojs/react';
 import tailwind from '@astrojs/tailwind';
 
+console.log('Loaded OPENWEATHER_API_KEY in astro.config.mjs:', process.env.OPENWEATHER_API_KEY); // Debug log
+
 export default defineConfig({
   integrations: [react(), tailwind()],
   vite: {
@@ -16,6 +18,6 @@ export default defineConfig({
         },
       },
     ],
-    logLevel: 'error', // Suppress warnings
+    logLevel: 'error',
   },
 });

@@ -7,7 +7,7 @@
   "scripts": {
     "dev": "astro dev",
     "start": "astro dev",
-    "build": "astro build",
+    "build": "astro build && rm -rf public/* && cp -r dist/* public/",
     "preview": "astro preview",
     "astro": "astro"
   },
@@ -26,6 +26,7 @@
     "astro-seo": "^0.7.2",
     "axios": "^1.4.0",
     "dayjs": "^1.11.7",
+    "dotenv": "^16.5.0",
     "font-awesome": "^4.7.0",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",

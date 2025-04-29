@@ -8,18 +8,11 @@ import SkillCard from '@components/SkillCard.astro';
 import SocialIcon from '@components/SocialIcon.astro';
 import { Icon } from 'astro-icon';
 
-let temp_c = 25;
-let temp_f = 77;
-try {
-  const apiKey = import.meta.env.OPENWEATHER_API_KEY || '854b0fbcd9fb2e7ab21c0afee1efde32';
-  const res = await fetch(`https://api.openweathermap.org/data/2.5/weather?q=gracemere&units=metric&appid=${apiKey}&lang=en`);
-  if (!res.ok) throw new Error(`HTTP error! status: ${res.status}`);
-  const data = await res.json();
-  temp_c = data.main.temp;
-  temp_f = temp_c * 9 / 5 + 32;
-} catch (error) {
-  console.error('Failed to fetch weather data:', error);
-}
+// Fetch weather data during build time
+const res = await fetch(`https://api.openweathermap.org/data/2.5/weather?q=gracemere&units=metric&appid=858d5bda17434ce3864d63491b44deb4&lang=en`); // Replace with your own API key
+const data = await res.json(); // Parse JSON
+const temp_c = data.main.temp; // Celsius
+const temp_f = temp_c * 9 / 5 + 32; // Convert to Fahrenheit manually
 ---
 
 <Layout>
@@ -94,14 +87,13 @@ try {
     </footer>
 </Layout>
 
-<script src="http://localhost:8097"></script>
 <script>
   document.addEventListener('DOMContentLoaded', () => {
     console.log('DOM loaded, initializing jellyfish');
-    import('../scripts/jellyfish.js').then(({ initJellyfishAnimation }) => {
+    import('..//scripts/jellyfish.js').then(({ initJellyfishAnimation }) => {
       const cleanup = initJellyfishAnimation();
       window.addEventListener('beforeunload', cleanup);
     }).catch(err => console.error('Failed to load jellyfish.js:', err));
   });
 </script>
-<script src="/src/scripts/weather.js" defer></script>
+<script src="/scripts/weather.js" defer></script>
