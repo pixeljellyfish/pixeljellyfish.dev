@@ -93,22 +93,19 @@ body {
     position: relative;
   }
 
-button {
-  display: block !important; /* Ensure the button is displayed */
-  visibility: visible !important; /* Ensure it's not hidden */
+@media (max-width: 800px) {
+    .cstm-footer {
+      flex-direction: row;
+    }
 }
 
-.notification {
-  animation: fadeIn 0.3s ease-in-out;
-}
+.cstm-margin {
+    margin-left: 5rem !important; /* Replace with the actual calculated value */
+  }
 
-@keyframes fadeIn {
-  from {
-    opacity: 0;
-    transform: translateY(-10px);
+  .cstm-margin-right {
+    margin-right: 1rem !important; /* Replace with the actual calculated value */
   }
-  to {
-    opacity: 1;
-    transform: translateY(0);
+  .cstm-margin-left {
+    margin-left: 3rem !important; /* Replace with the actual calculated value */
   }
-}
