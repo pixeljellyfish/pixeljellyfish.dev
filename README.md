@@ -19,4 +19,5 @@ All commands are run from the root of the project, from a terminal:
 ## Credits
 
 - [Ven](https://github.com/ven) for the ActivityCard and Time components
-- [itsnebulalo](https://github.com/itsnebulalol/itsnebula.net) for initial inspiration- [itsnebulalo](https://github.com/itsnebulalol/itsnebula.net) for initial inspiration
+- [itsnebulalo](https://github.com/itsnebulalol/itsnebula.net) for initial inspiration
+
