@@ -1,5 +1,0 @@
-[
-  { "id": 1, "title": "JellyBot", "category": "Everyone", "description": "Commands for everyone to use" },
-  { "id": 2, "title": "JellyBot", "category": "Mod", "description": "Mod Only Commands" },
-  { "id": 3, "title": "JellyBot", "category": "Owner", "description": "Bot Owner specific Commands" }
-]
