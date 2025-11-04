@@ -2,7 +2,9 @@ import { defineConfig } from 'astro/config';
 import react from '@astrojs/react';
 import tailwind from '@astrojs/tailwind';
 
-console.log('Loaded OPENWEATHER_API_KEY in astro.config.mjs:', process.env.OPENWEATHER_API_KEY); // Debug log
+let not_sensitive_data = { a: 1, b : 2} 
+// GOOD: it is fine to log data that is not sensitive
+console.info(`[INFO] Some object contains: ${JSON.stringify(not_sensitive_data)}`);
 
 export default defineConfig({
   integrations: [react(), tailwind()],

@@ -47,12 +47,13 @@ export const iconMap: { [key: string]: JSX.Element } = {
 
 // Function to get file type from filename
 export const getFileType = (fileName: string): string => {
-    const extension = fileName.split('.').pop()?.toLowerCase();
+    const rawExt = fileName.split('.').pop();
+    const extension = rawExt ? rawExt.toLowerCase() : '';
     return extensionMap[extension] || 'Unknown';
 };
-
 // Function to get file type icon from filename
 export const getFileTypeIcon = (fileName: string): JSX.Element => {
-    const extension = fileName.split('.').pop()?.toLowerCase();
+    const rawExt = fileName.split('.').pop();
+    const extension = rawExt ? rawExt.toLowerCase() : '';
     return iconMap[extension] || <VscCode className="inline-block w-4 h-4 mr-1" />;
-};
+}
