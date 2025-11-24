@@ -1,13 +1,12 @@
 ---
-import { Icon } from 'astro-icon';
+import Icon from 'astro-icon';
 
 interface Props {
     repo: string;
     id: string;
-    bgColor?: string;
 }
 
-const { repo, id, bgColor = "bg-gray-500" } = Astro.props;
+const { repo, id } = Astro.props;
 
 let name = 'Loading';
 let description = 'Loading';
@@ -16,7 +15,7 @@ let starDisplay = 'Loading';
 try {
     const res = await fetch(`https://api.github.com/repos/pixeljellyfish/${repo}`, {
         headers: {
-            Authorization: `token ${import.meta.env.GH_TOKEN || 'default-token'}`
+            Authorization: `token ${import.meta.env.GITHUB_TOKEN}`
         }
     });
     if (!res.ok) throw new Error(`HTTP error! status: ${res.status}`);
@@ -36,18 +35,18 @@ try {
     href={`https://github.com/pixeljellyfish/${repo}`}
     rel="noopener noreferrer"
     target="_blank"
-    class={`flex-grow h-24 sm:h-28 focus:outline-none transition duration-300 ease-in-out transform hover:scale-105 p-3 rounded-md border border-gray-800 shadow flex items-center justify-between ${bgColor}`}
+    class="flex-grow h-24 focus:outline-none transition duration-300 ease-in-out transform hover:scale-105 p-4 rounded-md border-2 border-indigo-600 shadow-lg flex items-center justify-between bg-slate-800/90 dark:bg-slate-900/90 text-white z-40"
 >
     <div class="my-auto">
-        <div class="font-semibold text-base sm:text-lg">
+        <div class="font-semibold text-lg">
             {name}
         </div>
-        <p class="text-xs sm:text-sm">
+        <p class="text-xs text-gray-200">
             {description}
         </p>
     </div>
-    <div class="font-semibold text-sm sm:text-base">
-        <Icon name="mdi:star" className="fill-white h-[1em] inline" />
-        <span>{starDisplay}</span>
+    <div class="font-semibold text-base flex items-center gap-2">
+        <Icon pack="mdi" name="star" class="h-[1em] inline text-amber-300" />
+        <span class="text-white">{starDisplay}</span>
     </div>
 </a>

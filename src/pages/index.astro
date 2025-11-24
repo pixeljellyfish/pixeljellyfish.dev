@@ -39,15 +39,14 @@ const temp_f = temp_c * 9 / 5 + 32; // Convert to Fahrenheit manually
       <DiscordStatus client:only="react"/>
     </div>
 
-    <h2 class="font-medium mt-12 text-white interactive">Projects</h2>
-    <p class="mb-4 text-white interactive">
-      These are <span class="text-orange-600">projects</span> that I have either <span class="text-red-600">created</span> or contributed to. I only feature my <span class="text-yellow-600">favorite</span> projects here.
-    </p>
-    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 interactive" style="min-height: 216px;">
-      <ProjectCard repo="c0mebackf0lders" id="4ZHCtv" bgColor="bg-violet-600" />
-      <ProjectCard repo="pixeljellyfish.dev" id="xGHSiy" bgColor="bg-indigo-600" />
-      <ProjectCard repo="repo" id="eZ2hS8" bgColor="bg-lime-500" />
-      <ProjectCard repo="OS-Stuff" id="y5Bs8x" bgColor="bg-emerald-600" />
+    <!-- Projects -->
+    <h3 class="font-medium mt-12">Projects</h3>
+    <p class="mb-4">These are projects that I have either created or contributed to. I only feature my favorite projects here.</p>
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <ProjectCard repo="c0mebackf0lders" id="4ZHCtv" />
+        <ProjectCard repo="pixeljellyfish.dev" id="xGHSiy" />
+        <ProjectCard repo="repo" id="eZ2hS8" />
+        <ProjectCard repo="OS-Stuff" id="y5Bs8x" />
     </div>
 
     <h2 class="font-medium mt-12 text-white interactive">Skills</h2>
