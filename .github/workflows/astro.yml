@@ -58,6 +58,36 @@ jobs:
       - name: Update Astro and dependencies
         run: ${{ steps.detect-package-manager.outputs.manager }} install astro@latest @astrojs/tailwind@latest @astrojs/react@latest @astrojs/rss@latest
         working-directory: ${{ env.BUILD_PATH }}
+      - name: Fetch GitHub repo metadata
+        # use GH_PAT secret if set, otherwise fall back to the built-in token
+        env:
+          GH_TOKEN: ${{ secrets.GH_PAT || secrets.GITHUB_TOKEN }}
+        run: |
+          node <<'NODE'
+          const fs = require('fs');
+          const repos = ['c0mebackf0lders','pixeljellyfish.dev','repo','OS-Stuff'];
+          (async () => {
+            const out = [];
+            for (const r of repos) {
+              try {
+                const url = `https://api.github.com/repos/pixeljellyfish/${r}`;
+                const headers = process.env.GH_TOKEN ? { Authorization: `token ${process.env.GH_TOKEN}` } : undefined;
+                const res = await fetch(url, headers ? { headers } : undefined);
+                if (res.ok) {
+                  const d = await res.json();
+                  out.push({ name: d.name, full_name: d.full_name, description: d.description, stargazers_count: d.stargazers_count });
+                } else {
+                  console.warn('GitHub fetch failed for', r, res.status);
+                }
+              } catch (e) {
+                console.warn('Error fetching', r, e.message || e);
+              }
+            }
+            fs.mkdirSync('src/data', { recursive: true });
+            fs.writeFileSync('src/data/repos.json', JSON.stringify(out, null, 2));
+            console.log('Wrote src/data/repos.json');
+          })();
+          NODE
       - name: Build with Astro and copy to public
         run: |
           ${{ steps.detect-package-manager.outputs.runner }} astro build \
@@ -66,7 +96,8 @@ jobs:
           rm -rf public/* && cp -r dist/* public/
         working-directory: ${{ env.BUILD_PATH }}
         env:
-          GH_TOKEN: ${{ secrets.GH_PAT }}
+          # pass the same token used earlier (fallback to built-in token if GH_PAT not provided)
+          GH_TOKEN: ${{ secrets.GH_PAT || secrets.GITHUB_TOKEN }}
           OPENWEATHER_API_KEY: ${{ secrets.OPENWEATHER_API_KEY }}
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3

@@ -1,5 +1,7 @@
 ---
 import Icon from 'astro-icon';
+import fs from 'fs';
+import path from 'path';
 
 interface Props {
     repo: string;
@@ -12,25 +14,87 @@ let name = 'Loading';
 let description = 'Loading';
 let starDisplay = 'Loading';
 
+let populated = false;
+
+// Try to read pre-fetched local JSON produced by CI at src/data/repos.json
 try {
-    const res = await fetch(`https://api.github.com/repos/pixeljellyfish/${repo}`, {
-        headers: {
-            Authorization: `token ${import.meta.env.GITHUB_TOKEN}`
+    const dataUrl = new URL('../data/repos.json', import.meta.url);
+    const dataPath = dataUrl.pathname;
+    if (fs.existsSync(dataPath)) {
+        const file = fs.readFileSync(dataPath, 'utf-8');
+        const list = JSON.parse(file);
+        const entry = Array.isArray(list) ? list.find(e => {
+            // match by repo name or full_name
+            if (!e) return false;
+            if (e.name === repo) return true;
+            if (typeof e.full_name === 'string' && e.full_name.endsWith(`/${repo}`)) return true;
+            return false;
+        }) : null;
+
+        if (entry) {
+            name = entry.name || 'Unnamed Repo';
+            description = entry.description || 'No description available';
+            starDisplay = entry.stargazers_count === 0 ? 'No stars yet' : entry.stargazers_count;
+            populated = true;
         }
-    });
-    if (!res.ok) throw new Error(`HTTP error! status: ${res.status}`);
-    const data = await res.json();
-    name = data.name || 'Unnamed Repo';
-    description = data.description || 'No description available';
-    starDisplay = data.stargazers_count === 0 ? 'No stars yet' : data.stargazers_count;
-} catch (error) {
-    console.error(`Failed to fetch repo ${repo} at build time:`, error);
-    name = 'Error';
-    description = 'Could not load repository data';
-    starDisplay = 'N/A';
+    }
+} catch (err) {
+    // silently continue to network fetch if local data is missing or invalid
+    console.warn('ProjectCard: local repo JSON not available or invalid:', err);
+}
+
+if (!populated) {
+    try {
+        const url = `https://api.github.com/repos/pixeljellyfish/${repo}`;
+        const token = import.meta.env.GITHUB_TOKEN;
+        let res;
+
+        // If we have a token, try authenticated first (better rate limits), otherwise unauthenticated.
+        if (token) {
+            res = await fetch(url, { headers: { Authorization: `token ${token}` } });
+            // If auth fails (401/403) or rate-limited, try unauthenticated fallback:
+            if (!res.ok && (res.status === 401 || res.status === 403 || res.status === 429)) {
+                const fallbackRes = await fetch(url);
+                if (fallbackRes.ok) {
+                    const fallbackData = await fallbackRes.json();
+                    name = fallbackData.name || 'Unnamed Repo';
+                    description = fallbackData.description || 'No description available';
+                    starDisplay = fallbackData.stargazers_count === 0 ? 'No stars yet' : fallbackData.stargazers_count;
+                } else {
+                    throw new Error(`GitHub fetch failed (auth then fallback). Statuses: ${res.status}, ${fallbackRes.status}`);
+                }
+            } else if (!res.ok) {
+                throw new Error(`GitHub fetch failed: ${res.status} ${res.statusText}`);
+            } else {
+                const data = await res.json();
+                name = data.name || 'Unnamed Repo';
+                description = data.description || 'No description available';
+                starDisplay = data.stargazers_count === 0 ? 'No stars yet' : data.stargazers_count;
+            }
+        } else {
+            // No token: do a single unauthenticated fetch and handle common failure statuses gracefully
+            res = await fetch(url);
+            if (!res.ok) {
+                // if rate-limited or forbidden, show a friendly fallback instead of crashing
+                console.warn(`GitHub unauthenticated fetch failed for ${repo}:`, res.status, res.statusText);
+                name = 'Unavailable';
+                description = 'Repository data temporarily unavailable';
+                starDisplay = 'N/A';
+            } else {
+                const data = await res.json();
+                name = data.name || 'Unnamed Repo';
+                description = data.description || 'No description available';
+                starDisplay = data.stargazers_count === 0 ? 'No stars yet' : data.stargazers_count;
+            }
+        }
+    } catch (error) {
+        console.error(`Failed to fetch repo ${repo} at build time:`, error);
+        name = 'Error';
+        description = 'Could not load repository data';
+        starDisplay = 'N/A';
+    }
 }
 ---
-
 <a
     href={`https://github.com/pixeljellyfish/${repo}`}
     rel="noopener noreferrer"
