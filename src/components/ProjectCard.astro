@@ -1,5 +1,5 @@
 ---
-import Icon from 'astro-icon';
+import { Icon } from 'astro-icon/components';
 import fs from 'fs';
 import path from 'path';
 
@@ -110,7 +110,7 @@ if (!populated) {
         </p>
     </div>
     <div class="font-semibold text-base flex items-center gap-2">
-        <Icon pack="mdi" name="star" class="h-[1em] inline text-amber-300" />
+        <Icon name="mdi:star" class="h-[1em] inline text-amber-300" />
         <span class="text-white">{starDisplay}</span>
     </div>
 </a>
