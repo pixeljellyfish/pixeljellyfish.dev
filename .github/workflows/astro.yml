@@ -24,6 +24,7 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
+
       - name: Detect package manager
         id: detect-package-manager
         run: |
@@ -43,21 +44,22 @@ jobs:
             echo "Unable to determine package manager"
             exit 1
           fi
+
       - name: Setup Node
         uses: actions/setup-node@v4
         with:
           node-version: "20"
           cache: ${{ steps.detect-package-manager.outputs.manager }}
           cache-dependency-path: ${{ env.BUILD_PATH }}/${{ steps.detect-package-manager.outputs.lockfile }}
+
       - name: Setup Pages
         id: pages
         uses: actions/configure-pages@v5
+
       - name: Install dependencies
-        run: ${{ steps.detect-package-manager.outputs.manager }} ${{ steps.detect-package-manager.outputs.command }} --force
+        run: ${{ steps.detect-package-manager.outputs.manager }} ${{ steps.detect-package-manager.outputs.command }}
         working-directory: ${{ env.BUILD_PATH }}
-      - name: Update Astro and dependencies
-        run: ${{ steps.detect-package-manager.outputs.manager }} install astro@latest @astrojs/tailwind@latest @astrojs/react@latest @astrojs/rss@latest
-        working-directory: ${{ env.BUILD_PATH }}
+
       - name: Fetch GitHub repo metadata
         # use GH_PAT secret if set, otherwise fall back to the built-in token
         env:
@@ -88,6 +90,7 @@ jobs:
             console.log('Wrote src/data/repos.json');
           })();
           NODE
+
       - name: Build with Astro and copy to public
         run: |
           ${{ steps.detect-package-manager.outputs.runner }} astro build \
@@ -99,6 +102,7 @@ jobs:
           # pass the same token used earlier (fallback to built-in token if GH_PAT not provided)
           GH_TOKEN: ${{ secrets.GH_PAT || secrets.GITHUB_TOKEN }}
           OPENWEATHER_API_KEY: ${{ secrets.OPENWEATHER_API_KEY }}
+
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
