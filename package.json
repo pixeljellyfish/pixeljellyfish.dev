@@ -22,7 +22,7 @@
     "@types/react": "^18.0.33",
     "@types/react-dom": "^18.0.11",
     "astro": "^5.15.9",
-    "astro-icon": "^0.8.2",
+    "astro-icon": "^1.2.0",
     "astro-seo": "^0.7.2",
     "axios": "^1.12.2",
     "canvas-confetti": "^1.9.3",
@@ -45,5 +45,11 @@
   "devDependencies": {
     "@tailwindcss/typography": "^0.5.9",
     "critical": "^7.2.1"
+  },
+  "allowScripts": {
+    "esbuild@0.25.1": true,
+    "fsevents@2.3.3": true,
+    "puppeteer@2.1.1": true,
+    "sharp@0.34.4": true
   }
 }
