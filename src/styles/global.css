@@ -98,14 +98,3 @@ body {
       flex-direction: row;
     }
 }
-
-.cstm-margin {
-    margin-left: 5rem !important; /* Replace with the actual calculated value */
-  }
-
-  .cstm-margin-right {
-    margin-right: 1rem !important; /* Replace with the actual calculated value */
-  }
-  .cstm-margin-left {
-    margin-left: 3rem !important; /* Replace with the actual calculated value */
-  }

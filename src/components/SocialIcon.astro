@@ -1,22 +1,30 @@
 ---
 interface Props {
-    name: string;
-    href: string;
-    icon: string;
+  name: string;
+  href: string;
+  icon: string;
+  class?: string;
 }
-const { name, href, icon } = Astro.props;
+
+const { name, href, icon, class: className = "" } = Astro.props;
 ---
 
 <a
-    aria-label={name}
-    class="cursor-pointer fill-current focus:outline-none transition duration-300 ease-in-out hover:text-indigo-900 dark:hover:text-indigo-200"
-    href={href}
-    rel="noopener noreferrer"
-    target="_blank"
+  href={href}
+  aria-label={name}
+  target="_blank"
+  rel="noopener noreferrer"
+  class:list={[
+    "inline-flex items-center justify-center size-16 rounded-lg",  // bigger square (48px)
+    "transition-transform duration-200 ease-in-out",
+    "hover:scale-110",
+    "focus:outline-none",
+    className
+  ]}
 >
-    <img
-        src={`/icons/${icon}.svg`}
-        alt={`${name} icon`}
-        class="h-[1.5em] w-[1.5em] sm:h-[1.8em] sm:w-[1.8em] inline"
-    />
+  <img
+    src={`/icons/${icon}.svg`}
+    alt={`${name} icon`}
+    class="w-8 h-8" 
+  />
 </a>
